@@ -14,7 +14,7 @@ internal class SnakeShould : WithAssertions {
         // when
 
         // then
-        assertThat(snake.head()).isEqualTo(Position(1, 1))
+        assertThat(snake.head).isEqualTo(Position(1, 1))
     }
 
     @Test
@@ -25,7 +25,7 @@ internal class SnakeShould : WithAssertions {
         // when
 
         // then
-        assertThat(snake.direction()).isEqualTo(Heading.DOWN)
+        assertThat(snake.direction).isEqualTo(Heading.DOWN)
     }
 
     @Test
@@ -34,10 +34,10 @@ internal class SnakeShould : WithAssertions {
         val snake = Snake(Position(0, 1), Heading.UP)
 
         // when
-        snake.changeHeading(Heading.DOWN)
+        snake.direction = Heading.DOWN
 
         // then
-        assertThat(snake.direction()).isEqualTo(Heading.DOWN)
+        assertThat(snake.direction).isEqualTo(Heading.DOWN)
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class SnakeShould : WithAssertions {
         snake.move()
 
         // then
-        assertThat(snake.head()).isEqualTo(Position(2, 1))
+        assertThat(snake.head).isEqualTo(Position(2, 1))
     }
 
     @Test
@@ -61,7 +61,7 @@ internal class SnakeShould : WithAssertions {
         snake.move()
 
         // then
-        assertThat(snake.head()).isEqualTo(Position(1, 2))
+        assertThat(snake.head).isEqualTo(Position(1, 2))
     }
 
     @Test
@@ -73,7 +73,7 @@ internal class SnakeShould : WithAssertions {
         snake.move()
 
         // then
-        assertThat(snake.head()).isEqualTo(Position(0, 1))
+        assertThat(snake.head).isEqualTo(Position(0, 1))
     }
 
     @Test
@@ -85,7 +85,7 @@ internal class SnakeShould : WithAssertions {
         snake.move()
 
         // then
-        assertThat(snake.head()).isEqualTo(Position(1, 0))
+        assertThat(snake.head).isEqualTo(Position(1, 0))
     }
 
     @Test
@@ -96,7 +96,7 @@ internal class SnakeShould : WithAssertions {
         // when
 
         // then
-        assertThat(snake.length()).isEqualTo(1)
+        assertThat(snake.length).isEqualTo(1)
     }
 
     @Test
@@ -109,7 +109,7 @@ internal class SnakeShould : WithAssertions {
         snake.grow()
 
         // then
-        assertThat(snake.length()).isEqualTo(2)
+        assertThat(snake.length).isEqualTo(2)
     }
 
     @Test
@@ -122,7 +122,7 @@ internal class SnakeShould : WithAssertions {
         snake.grow()
 
         // then
-        assertThat(snake.body()).containsExactly(Position(3, 6), Position(3, 5))
+        assertThat(snake.body).containsExactly(Position(3, 6), Position(3, 5))
     }
 
     @Test
@@ -217,7 +217,7 @@ internal class SnakeShould : WithAssertions {
         // when
 
         // then
-        assertThat(snake.isDead()).isFalse()
+        assertThat(snake.isDead).isFalse()
     }
 
     @Test
@@ -228,18 +228,18 @@ internal class SnakeShould : WithAssertions {
             snake.move()
             snake.grow()
         }
-        snake.changeHeading(Heading.DOWN)
+        snake.direction = Heading.DOWN
         snake.move()
-        snake.changeHeading(Heading.LEFT)
+        snake.direction = Heading.LEFT
         snake.move()
-        snake.changeHeading(Heading.UP)
-        assertThat(snake.isDead()).describedAs("Snake should not have collided with self yet").isFalse()
+        snake.direction = Heading.UP
+        assertThat(snake.isDead).describedAs("Snake should not have collided with self yet").isFalse()
 
         // when
         snake.move()
 
         // then
-        assertThat(snake.isDead()).describedAs("Snake should have collided with self").isTrue()
+        assertThat(snake.isDead).describedAs("Snake should have collided with self").isTrue()
     }
 
     @Test fun `cannot move after dieing`() {
@@ -249,21 +249,21 @@ internal class SnakeShould : WithAssertions {
         snake.grow()
         snake.move()
         snake.grow()
-        snake.changeHeading(Heading.UP)
+        snake.direction = Heading.UP
         snake.move()
-        assertThat(snake.isDead()).describedAs("Snake should die after colliding with self").isTrue()
+        assertThat(snake.isDead).describedAs("Snake should die after colliding with self").isTrue()
 
         // when
-        snake.changeHeading(Heading.RIGHT)
+        snake.direction = Heading.RIGHT
         snake.move()
         snake.grow()
 
         // then
         assertAll(
-            {assertThat(snake.isDead()).describedAs("Snake should still be dead").isTrue()},
-            {assertThat(snake.direction()).describedAs("Dead snake cannot change direction").isEqualTo(Heading.UP)},
-            {assertThat(snake.head()).describedAs("Dead snake cannot move").isEqualTo(Position(2,2))},
-            {assertThat(snake.body()).describedAs("Dead snake cannot grow").hasSize(3)}
+            {assertThat(snake.isDead).describedAs("Snake should still be dead").isTrue()},
+            {assertThat(snake.direction).describedAs("Dead snake cannot change direction").isEqualTo(Heading.UP)},
+            {assertThat(snake.head).describedAs("Dead snake cannot move").isEqualTo(Position(2,2))},
+            {assertThat(snake.length).describedAs("Dead snake cannot grow").isEqualTo(3)}
         )
     }
 
