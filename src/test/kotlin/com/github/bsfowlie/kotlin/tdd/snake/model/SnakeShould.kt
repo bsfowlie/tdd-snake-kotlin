@@ -242,7 +242,7 @@ internal class SnakeShould : WithAssertions {
         assertThat(snake.isDead).describedAs("Snake should have collided with self").isTrue()
     }
 
-    @Test fun `cannot move after dieing`() {
+    @Test fun `cannot move after dying`() {
         // given
         val snake = Snake(Position(2, 1), Heading.DOWN)
         snake.move()
@@ -261,9 +261,9 @@ internal class SnakeShould : WithAssertions {
         // then
         assertAll(
             {assertThat(snake.isDead).describedAs("Snake should still be dead").isTrue()},
-            {assertThat(snake.direction).describedAs("Dead snake cannot change direction").isEqualTo(Heading.UP)},
-            {assertThat(snake.head).describedAs("Dead snake cannot move").isEqualTo(Position(2,2))},
-            {assertThat(snake.length).describedAs("Dead snake cannot grow").isEqualTo(3)}
+            {assertThat(snake.direction).describedAs("A dead snake cannot change direction").isEqualTo(Heading.UP)},
+            {assertThat(snake.head).describedAs("A dead snake cannot move").isEqualTo(Position(2,2))},
+            {assertThat(snake.length).describedAs("A dead snake cannot grow").isEqualTo(3)}
         )
     }
 
